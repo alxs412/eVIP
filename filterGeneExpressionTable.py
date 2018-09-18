@@ -1,4 +1,3 @@
-#!/broad/software/free/Linux/redhat_5_x86_64/pkgs/python_2.5.4/bin/python
 # <Script name>
 # Author: Angela Brooks
 # Program Completion Date:

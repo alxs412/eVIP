@@ -37,7 +37,7 @@ def main():
                 ncol_vals = int(ncols) - 1
                 line_count = getLineCount(input_file)
                 z_output_file.write(str(line_count-1) + "\t" + str(ncol_vals) + "\t" + "0" + "\t" + "0" + "\n")
-                sp_output.write(str(ncol_vals) + "\t" + str(ncol_vals) + "\t" + "0" + "\t" + "0" + "\n")
+                sp_output.write(str(ncol_vals).strip() + "\t" + str(ncol_vals) + "\t" + "0" + "\t" + "0" + "\n")
                 header = header.replace("#gene_id", "id")
                 sp_output.write(header)
                 z_output_file.write(header)
@@ -94,7 +94,7 @@ def main():
                 sp_output.write(str(ncols) + "\t" + str(ncols)  + "\t" + str(num_meta_lines) + "\t" + str(num_meta_lines) + "\n")
 
                 # add meta row names to third row
-                sp_output.write("id" + "\t" + "\t".join(meta_row_names) + "\t" + sample_names[3:])
+                sp_output.write("id" + "\t".join(meta_row_names) + "\t" + sample_names[3:])
 
                 #metadata
                 na = ("na" + "\t") * num_meta_lines
@@ -191,13 +191,13 @@ def run_main(input=None, zscore_gct=None, out_dir=None):
                 sp_output.write(str(ncols) + "\t" + str(ncols)  + "\t" + str(num_meta_lines) + "\t" + str(num_meta_lines) + "\n")
 
                 # add meta row names to third row
-                sp_output.write("id" + "\t" + "\t".join(meta_row_names) + "\t" + sample_names[3:])
+                sp_output.write("id" + "\t".join(meta_row_names) + "\t" + sample_names[3:])
 
                 #metadata
                 na = ("na" + "\t") * num_meta_lines
 
                 for row in meta_rows:
-                    sp_output.write(str(row[0]) + "\t" +  str(na) +  str("\t".join(row[1:])).strip("\n"))
+                    sp_output.write(str(row[0].strip()) + "\t" +  str(na) +  str("\t".join(row[1:])).strip("\n"))
                     sp_output.write("\n")
 
                 #importing zscores as a matrix
@@ -228,7 +228,7 @@ def matrixToFile_gct(matrix, output_file, header, zscore_gct, num_meta_lines):
     for line,col in itertools.izip(matrix,column_lists[1:]):
         sp_line = np.ndarray.tolist(line)
 
-        new_sp_line = str(header_list[n].strip("\n"))+ "\t"+ "\t".join(map(str,col[:num_meta_lines])) + "\t"+ ("\t".join(map(str,sp_line)))
+        new_sp_line = str(header_list[n].strip())+ "\t".join(map(str,col[:num_meta_lines])) + "\t"+ ("\t".join(map(str,sp_line)))
 
         output_file.write(new_sp_line+"\n")
 
@@ -320,4 +320,3 @@ def calcZscore(input_file):
 # END FUNCTIONS #
 #################
 if __name__ == "__main__": main()
-

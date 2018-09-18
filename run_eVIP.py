@@ -11,7 +11,7 @@ import eVIP_compare
 import itertools
 import rpy2.robjects as robjects
 import json
-#import eVIPP_sparkler
+import eVIPP_sparkler
 
 ########
 # MAIN #
@@ -139,11 +139,11 @@ def main(infile=None, zscore_gct = None, out_directory=None, sig_info =None, c=N
         summarize_predict_files(used_pathways, summary_eVIPP_vals)
 
         #eVIPP sparkler
-#
-#        print "Making allele pathway sparkler plots..."
-#        run_eVIPP_sparkler = eVIPP_sparkler.main(pred_file= out_dir + "/eVIPP_combined_predict_files.txt", ref_allele_mode=args.ref_allele_mode, y_thresh=args.y_thresh, x_thresh=args.x_thresh, use_c_pval=args.use_c_pval,
-#                  annotate=args.annotate, by_gene_color=args.by_gene_color, pdf=args.pdf, xmin=args.xmin, xmax=args.xmax, ymin=args.ymin, ymax=args.ymax,
-#                  out_dir= out_dir + "/eVIPP_sparkler_plots")
+
+        print "Making allele pathway sparkler plots..."
+        run_eVIPP_sparkler = eVIPP_sparkler.main(pred_file= out_dir + "/eVIPP_combined_predict_files.txt", ref_allele_mode=args.ref_allele_mode, y_thresh=args.y_thresh, x_thresh=args.x_thresh, use_c_pval=args.use_c_pval,
+                 annotate=args.annotate, by_gene_color=args.by_gene_color, pdf=args.pdf, xmin=args.xmin, xmax=args.xmax, ymin=args.ymin, ymax=args.ymax,
+                 out_dir= out_dir + "/eVIPP_sparkler_plots")
 
 
 ############
@@ -574,7 +574,7 @@ def JSON_pway():
                 percent_matched = (float(len(matched_ids))/(float(len(pathway_genes))))*100
                 print "percent matched: " + str(percent_matched)
 
-            if float(matched_length) > (int(args.min_genes) if args.min_genes else 4):
+            if float(matched_length) > (int(args.min_genes)-1 if args.min_genes else 4):
                 used_pathways.append(pathway)
 
             else:
@@ -648,7 +648,7 @@ def JSON_pway():
                 percent_matched = (float(len(matched_ids))/(float(len(pathway_genes))))*100
                 print "percent matched: " + str(percent_matched)
 
-                if float(matched_length) > (int(args.min_genes) if args.min_genes else 4):
+                if float(matched_length) > (int(args.min_genes)-1 if args.min_genes else 4):
                     used_pathways.append(pathway)
 
                 else:
